@@ -23,13 +23,14 @@ io.on('connection', (socket) => {
         }
         socket.join(newRoom)
         io.to(socket.id).emit('joinedGame', newRoom)
-        //console.log(Array.from(io.sockets.adapter.rooms.keys()))
     })
 
     socket.on('joinGame', code => {
-        if(!roomCode().includes(code)){
+        if(realRooms().includes(code)){
             socket.join(code)
             io.to(socket.id).emit('joinedGame', code)
+        } else {
+            io.to(socket.id).emit('joinFail', code, 'room does not exist')
         }
     })
 
@@ -39,7 +40,6 @@ io.on('connection', (socket) => {
 
     socket.on('dump', function(){
         io.to(socket.id).emit('dumpBack', [realRooms(), Array.from(socket.rooms).splice(-1,1)])
-        //console.log(Array.from(socket.rooms))
     })
 });
 

@@ -11,12 +11,16 @@ socket.on('ping', function(msg) {
     console.warn("recieved: " + msg)
 });
 
-socket.on('joinedGame', function(arg1) {
-    console.warn("joined game "+arg1)
+socket.on('joinedGame', function(code) {
+    console.warn("joined game "+code)
 });
 
-socket.on('dumpBack', function(arg1) {
-    console.log(arg1)
+socket.on('dumpBack', function(info) {
+    console.log(info)
+})
+
+socket.on('joinFail', function(code, reason) {
+    console.log('failed to join game '+code+'; '+reason)
 })
 
 const joinGame = document.getElementById("joinGame")
@@ -26,8 +30,8 @@ const gameCode = document.getElementById("gameCode")
 joinGame.addEventListener('submit', function(e) {
     e.preventDefault()
     if(gameCode.value.length == 4) {
+        socket.connect(); 
         socket.emit('joinGame', gameCode.value)
-        console.log("submitted")
     } else {
         console.log("not 4 characters")
     }
