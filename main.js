@@ -4,7 +4,6 @@ const socket = io(URL, { autoConnect: false });
 
 function ping() {
     socket.emit('ping', 1);
-    console.warn("pinged from home")
 }
 
 socket.on('ping', function(msg) {

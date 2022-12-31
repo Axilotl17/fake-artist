@@ -48,12 +48,16 @@ server.listen(3000, () => {
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/home.html');
+    res.sendFile(__dirname + '/main.html');
 });
 
-app.get('/home.js', function(req, res) {
+app.get('/main.js', function(req, res) {
     res.setHeader('Content-Type', 'application/javascript');
-    res.sendFile(__dirname + '/home.js');
+    res.sendFile(__dirname + '/main.js');
+});
+app.get('/game.js', function(req, res) {
+    res.setHeader('Content-Type', 'application/javascript');
+    res.sendFile(__dirname + '/game.js');
 });
 
 function roomCode() {
